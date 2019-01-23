@@ -17,7 +17,7 @@ services:
     volumes:
       - laravel-mysql-data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=laravel
       - MYSQL_DATABASE=laravel
@@ -32,6 +32,17 @@ services:
     volumes:
       - .:/var/www/app
     ports:
-      - "80:8080"
+      - 80:8080
     links:
       - mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+        - MYSQL_USERNAME=laravel
+        - MYSQL_ROOT_PASSWORD=laravel
+        - PMA_HOST=mysql
+    links:
+        - mysql
+    ports:
+        - 8080:80
